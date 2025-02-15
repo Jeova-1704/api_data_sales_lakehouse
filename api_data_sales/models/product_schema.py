@@ -14,3 +14,15 @@ class Product(BaseModel):
 
 class CategoryList(BaseModel):
     categories: List[str]
+
+
+class QuantityResponse(BaseModel):
+    quantity: int
+
+
+class TotalSoldCategory(BaseModel):
+    category: str
+    quantity: int
+    
+class TotalSoldByCategory(BaseModel):
+    data: List[TotalSoldCategory]
