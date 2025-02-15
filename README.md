@@ -11,5 +11,5 @@
 4. total de produtos vendidos ✅
 5. total de produtos vendidos por categoria ✅
 6. total de receita ✅
-7. quantidade de produtos no estoque
-8. Quantidade de produtos no estoque por categoria
+7. quantidade de produtos no estoque ✅
+8. Quantidade de produtos no estoque por categoria ✅
