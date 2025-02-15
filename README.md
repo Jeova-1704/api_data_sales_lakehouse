@@ -13,3 +13,12 @@
 6. total de receita ✅
 7. quantidade de produtos no estoque ✅
 8. Quantidade de produtos no estoque por categoria ✅
+
+
+
+
+Media de idade dos clientes 'idade' ✅
+total gastos dos clientes 'total_gasto' ✅
+quantidade de pedidos total feito pelos clientes 'total_pedido' ✅
+média de pedidos dos cliente 'total_pedido' ✅
+puxar dados por data, ex: de tal data até outra data 
