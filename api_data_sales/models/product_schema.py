@@ -20,9 +20,10 @@ class QuantityResponse(BaseModel):
     quantity: int
 
 
-class TotalSoldCategory(BaseModel):
+class TotalQuantityCategory(BaseModel):
     category: str
     quantity: int
-    
-class TotalSoldByCategory(BaseModel):
-    data: List[TotalSoldCategory]
+
+
+class TotalQuantityByCategory(BaseModel):
+    data: List[TotalQuantityCategory]

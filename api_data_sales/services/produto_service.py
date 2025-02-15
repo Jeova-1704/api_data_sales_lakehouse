@@ -1,9 +1,10 @@
-import pandas as pd
-from dotenv import load_dotenv
 import os
 
+import pandas as pd
+from dotenv import load_dotenv
+
 from api_data_sales.config.settings import ConnectionLakehouse
-from api_data_sales.models.product_schema import TotalSoldCategory
+from api_data_sales.models.product_schema import TotalQuantityCategory
 
 
 class ProdutoService:
@@ -38,7 +39,7 @@ class ProdutoService:
                 all_data.extend(batch_data)
                 offset += batch_size
 
-            except Exception as e:
+            except Exception:
                 break
 
         return pd.DataFrame(all_data)
@@ -53,22 +54,61 @@ class ProdutoService:
     def quantity_product(self):
         quantity = self.df.shape[0]
         return quantity
-    
+
     def quantity_category(self):
         quantity = self.df['categoria'].nunique()
         return quantity
-    
+
     def get_total_products_sold(self):
         quantity = self.df['total_vendido'].sum()
         return quantity
-    
+
     def get_total_sold_by_category(self):
-        if self.df.empty or 'categoria' not in self.df.columns or 'total_vendido' not in self.df.columns:
-            return []  # Retorna lista vazia se não houver dados válidos
+        if (
+            self.df.empty
+            or 'categoria' not in self.df.columns
+            or 'total_vendido' not in self.df.columns
+        ):
+            return []
 
-        grouped = self.df.groupby('categoria')['total_vendido'].sum().reset_index()
+        grouped = (
+            self.df.groupby('categoria')['total_vendido'].sum().reset_index()
+        )
 
-        # Convertendo para a estrutura esperada
-        result = [TotalSoldCategory(category=row['categoria'], quantity=int(row['total_vendido'])) for _, row in grouped.iterrows()]
+        result = [
+            TotalQuantityCategory(
+                category=row['categoria'], quantity=int(row['total_vendido'])
+            )
+            for _, row in grouped.iterrows()
+        ]
+
+        return result
+
+    def get_total_recipe(self):
+        quantity = self.df['total_receita'].sum()
+        return quantity
+
+    def get_total_stock(self):
+        quantity = self.df['estoque_atual'].sum()
+        return quantity
+
+    def get_total_stock_by_category(self):
+        if (
+            self.df.empty
+            or 'categoria' not in self.df.columns
+            or 'estoque_atual' not in self.df.columns
+        ):
+            return []
+
+        grouped = (
+            self.df.groupby('categoria')['estoque_atual'].sum().reset_index()
+        )
+
+        result = [
+            TotalQuantityCategory(
+                category=row['categoria'], quantity=int(row['estoque_atual'])
+            )
+            for _, row in grouped.iterrows()
+        ]
 
         return result
